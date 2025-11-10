@@ -32,12 +32,14 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Updated input size */
 #taskInput {
     flex: 1;
-    padding: 12px;
+    padding: 16px 14px;      /* increased padding for height */
     border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 8px;      /* slightly more rounded */
+    font-size: 18px;         /* larger text */
+    min-height: 50px;        /* ensures a taller input box */
 }
 
 #taskInput:focus {
@@ -45,15 +47,18 @@ h1 {
     border-color: #667eea;
 }
 
+/* Match button height with input */
 button {
-    padding: 12px 24px;
+    padding: 0 24px;
+    min-width: 100px;
     background: #667eea;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     transition: background 0.3s;
+    height: 50px;            /* makes it match the input box */
 }
 
 button:hover {
@@ -120,4 +125,3 @@ button:hover {
     color: #999;
     padding: 40px;
 }
-
