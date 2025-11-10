@@ -146,12 +146,6 @@ kubectl logs -f deployment/todo-app
 kubectl scale deployment todo-app --replicas=3
 ```
 
-### Delete deployment
-```bash
-kubectl delete -f k8s/deployment.yaml
-kubectl delete -f k8s/service.yaml
-```
-
 ### Restart deployment
 ```bash
 kubectl rollout restart deployment/todo-app
@@ -165,6 +159,35 @@ kubectl describe pod <pod-name>
 ### Exec into pod
 ```bash
 kubectl exec -it <pod-name> -- /bin/bash
+```
+
+### Delete pods and redeploy pods
+```bash
+kubectl delete pods -l app=todo-app
+kubectl get pods -w
+```
+
+### Delete deployment
+```bash
+kubectl delete -f k8s/deployment.yaml
+kubectl delete -f k8s/service.yaml
+```
+
+## Cleanup
+
+To remove all resources:
+```bash
+kubectl delete -f k8s/
+```
+
+To stop minikube:
+```bash
+minikube stop
+```
+
+To delete minikube cluster:
+```bash
+minikube delete
 ```
 
 ## API Endpoints
@@ -193,23 +216,6 @@ The database will be created as `todo.db` in the current directory. To use a dif
 DB_PATH=./data/todo.db python app.py
 ```
 3. Access at `http://localhost:5001`
-
-## Cleanup
-
-To remove all resources:
-```bash
-kubectl delete -f k8s/
-```
-
-To stop minikube:
-```bash
-minikube stop
-```
-
-To delete minikube cluster:
-```bash
-minikube delete
-```
 
 ## Notes
 
