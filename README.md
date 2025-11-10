@@ -1,4 +1,4 @@
-# Kubernetes Hands-On Project - ToDo Application
+# Kubernetes Hands-On Project 
 
 A lightweight full-stack ToDo application deployed on Kubernetes (minikube) to demonstrate hands-on Kubernetes experience. This project showcases containerization with Docker and orchestration with Kubernetes.
 
@@ -27,6 +27,14 @@ A lightweight full-stack ToDo application deployed on Kubernetes (minikube) to d
 │   └── service.yaml
 └── README.md
 ```
+
+## Technologies Used
+
+- **Flask**: Python web framework
+- **SQLite**: Lightweight database
+- **Docker**: Containerization
+- **Kubernetes**: Container orchestration
+- **minikube**: Local Kubernetes cluster
 
 ## Prerequisites
 
@@ -209,12 +217,3 @@ minikube delete
 - For production, consider using PersistentVolume (PV) and PersistentVolumeClaim (PVC) for data persistence
 - The application uses 2 replicas for demonstration, but they share the same volume (data consistency not guaranteed in this setup)
 - For production, consider using a shared database like PostgreSQL with a StatefulSet or external database service
-
-## Technologies Used
-
-- **Flask**: Python web framework
-- **SQLite**: Lightweight database
-- **Docker**: Containerization
-- **Kubernetes**: Container orchestration
-- **minikube**: Local Kubernetes cluster
-
