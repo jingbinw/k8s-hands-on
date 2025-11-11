@@ -20,9 +20,58 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5001
+          name: http
         env:
+        # Environment variables from ConfigMap
+        - name: APP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: todo-app-config
+              key: APP_PORT
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: todo-app-config
+              key: APP_ENV
         - name: DB_PATH
-          value: "/data/todo.db"
+          valueFrom:
+            configMapKeyRef:
+              name: todo-app-config
+              key: DB_PATH
+        # Environment variables from Secret
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: todo-app-secret
+              key: API_KEY
+        - name: SECRET_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: todo-app-secret
+              key: SECRET_TOKEN
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5001
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
         volumeMounts:
         - name: data-storage
           mountPath: /data
