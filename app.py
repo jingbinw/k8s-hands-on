@@ -7,8 +7,10 @@ from datetime import datetime
 app = Flask(__name__, static_folder='static')
 CORS(app)
 
-# Use environment variable for DB path, default to local path for development
+# Use environment variables for configuration, with defaults for local development
 DB_PATH = os.getenv('DB_PATH', 'todo.db')
+APP_PORT = int(os.getenv('APP_PORT', '5001'))
+APP_ENV = os.getenv('APP_ENV', 'development')
 
 def init_db():
     """Initialize the SQLite database"""
@@ -99,7 +101,16 @@ def delete_todo(todo_id):
     
     return jsonify({'message': 'Todo deleted'}), 200
 
+@app.route('/health', methods=['GET'])
+@app.route('/health/', methods=['GET'])  # Also handle trailing slash
+def health():
+    """Health check endpoint for monitoring"""
+    return jsonify({
+        'status': 'healthy',
+        'environment': APP_ENV
+    }), 200
+
 if __name__ == '__main__':
     init_db()
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    app.run(host='0.0.0.0', port=APP_PORT, debug=(APP_ENV == 'development'))
 
