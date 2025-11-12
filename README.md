@@ -192,6 +192,11 @@ In a separate terminal, run:
 minikube tunnel
 ```
 
+Add a hosts entry pointing to localhost while the tunnel is running:
+```bash
+echo "127.0.0.1 todo-app.local" | sudo tee -a /etc/hosts
+```
+
 Then access the application at:
 ```
 http://todo-app.local
@@ -206,8 +211,13 @@ minikube ip
 
 Add to `/etc/hosts` (Linux/macOS) or `C:\Windows\System32\drivers\etc\hosts` (Windows):
 ```
-<minikube-ip> todo-app.local
+<minikube ip> todo-app.local
 ```
+
+or combine the two steps (Linux/macOS only):
+```
+IP=$(minikube ip) && echo "$IP todo-app.local" | sudo tee -a /etc/hosts
+``` 
 
 Then access at:
 ```
